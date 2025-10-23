@@ -1,12 +1,13 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem; // Nouveau système d’entrée
 
 public class TouchScript : MonoBehaviour
 {
     private Camera arCamera;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
+        // Trouver la caméra AR active
         arCamera = Camera.main;
         if (arCamera == null)
         {
@@ -14,36 +15,46 @@ public class TouchScript : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Pour l'editeur Unity, on utilise le clic gauche de la souris. Commentez cette ligne pour les appareils tactiles
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
-        // Pour les appareils tactiles, décommentez cette ligne
-        // if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasPressedThisFrame)
-        {
-            // Décommenter cette ligne pour les appareils tactiles
-            // Vector2 touchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+        Vector2? touchPosition = null;
 
-            // Pour l'editeur Unity, on utilise la position de la souris. Commentez cette ligne pour les appareils tactiles
-            Vector2 touchPosition = Mouse.current.position.ReadValue();
-            
-            Debug.Log("Touch detected at: " + touchPosition);
-            Ray ray = arCamera.ScreenPointToRay(touchPosition);
-            RaycastHit hit;
-            //Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red, 1f);
-            if (Physics.Raycast(ray, out hit, 100f))
+#if UNITY_EDITOR
+        // Mode ÉDITEUR : clic de souris
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            touchPosition = Mouse.current.position.ReadValue();
+        }
+#else
+        // Mode APPAREIL MOBILE : toucher écran
+        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasPressedThisFrame)
+        {
+            touchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+        }
+#endif
+
+        // Si on a une position valide (clic ou toucher)
+        if (touchPosition.HasValue)
+        {
+            Ray ray = arCamera.ScreenPointToRay(touchPosition.Value);
+            // Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red, 0.5f);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, 100f))
             {
-                Debug.Log("Touched object: " + hit.transform.name);
+                Debug.Log($"Ray hit: {hit.transform.name}");
+
                 if (hit.transform.CompareTag("TouchableCube"))
                 {
-                    Debug.Log("Cube touched!");
                     Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
                     if (rb != null)
                     {
-                        rb.AddForce(Vector3.up * 5, ForceMode.Impulse);
+                        rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
                     }
                 }
+            }
+            else
+            {
+                Debug.Log("Ray missed everything.");
             }
         }
     }
