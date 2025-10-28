@@ -90,12 +90,24 @@ namespace UnityEngine.XR.ARFoundation.Samples
 
         void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs)
         {
+            
+
             foreach (var trackedImage in eventArgs.added)
             {
+                Debug.Log("📸 Détection AR — Image ajoutée : " + trackedImage.referenceImage.name);
                 // Give the initial image a reasonable default scale
                 var minLocalScalar = Mathf.Min(trackedImage.size.x, trackedImage.size.y) / 2;
                 trackedImage.transform.localScale = new Vector3(minLocalScalar, minLocalScalar, minLocalScalar);
                 AssignPrefab(trackedImage);
+            }
+            foreach (var trackedImage in eventArgs.updated)
+            {
+                Debug.Log("🔁 Image mise à jour : " + trackedImage.referenceImage.name + " - tracking state: " + trackedImage.trackingState);
+            }
+
+            foreach (var trackedImage in eventArgs.removed)
+            {
+                Debug.Log("❌ Image supprimée : " + trackedImage.referenceImage.name);
             }
         }
 
