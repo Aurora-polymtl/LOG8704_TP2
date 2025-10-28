@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.github.homuler.mediapipe": "file:C:/Users/julie/Downloads/MediaPipeUnityPlugin-all/Packages/com.github.homuler.mediapipe",
     "com.unity.collab-proxy": "2.9.3",
     "com.unity.feature.development": "1.0.2",
     "com.unity.inputsystem": "1.14.1",
