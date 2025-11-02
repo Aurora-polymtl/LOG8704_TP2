@@ -8,7 +8,7 @@ public class TouchScript : MonoBehaviour
     private Camera arCamera;
     public GameObject cubePrefab;
     public float spawnDistance = 1f;
-    public float minDistance = 0.3f;
+    public float minDistance = 0.25f;
     public Text notificationText;
 
     void Start()
@@ -74,22 +74,35 @@ public class TouchScript : MonoBehaviour
 
                 else
                 {
+                 
                     Vector3 spawnPos = ray.origin + ray.direction * 1f;
 
                     GameObject[] cubes = GameObject.FindGameObjectsWithTag("ARCube");
+                    GameObject[] balls = GameObject.FindGameObjectsWithTag("ARTennisBall");
                     bool tooClose = false;
                     foreach (GameObject cube in cubes)
                     {
-                        Debug.Log(Vector3.Distance(spawnPos, cube.transform.position));
                         if (Vector3.Distance(spawnPos, cube.transform.position) < minDistance)
                         {
                             tooClose = true;
                             break;
                         }
                     }
+                    if (!tooClose)
+                    {
+                        foreach (GameObject ball in balls)
+                        {
+                            float distance = Vector3.Distance(spawnPos, ball.transform.position);
+                            if (distance < minDistance)
+                            {
+                                tooClose = true;
+                                break;
+                            }
+                        }
+                    }
                     if (tooClose)
                     {
-                        ShowNotification("Un cube est trop proche");
+                        ShowNotification("Un objet est trop proche");
                     }
                     else
                     {
@@ -109,19 +122,31 @@ public class TouchScript : MonoBehaviour
                 Vector3 spawnPos = ray.origin + ray.direction * 1f;
 
                 GameObject[] cubes = GameObject.FindGameObjectsWithTag("ARCube");
+                GameObject[] balls = GameObject.FindGameObjectsWithTag("ARTennisBall");
                 bool tooClose = false;
                 foreach (GameObject cube in cubes)
                 {
-                    Debug.Log(Vector3.Distance(spawnPos, cube.transform.position));
                     if (Vector3.Distance(spawnPos, cube.transform.position) < minDistance)
                     {
                         tooClose = true;
                         break;
                     }
                 }
+                if (!tooClose)
+                {
+                    foreach (GameObject ball in balls)
+                    {
+                        float distance = Vector3.Distance(spawnPos, ball.transform.position);
+                        if (distance < minDistance)
+                        {
+                            tooClose = true;
+                            break;
+                        }
+                    }
+                }
                 if (tooClose)
                 {
-                    ShowNotification("Oh le cube est trop proche");
+                    ShowNotification("Un objet est trop proche");
                 }
                 else
                 {
