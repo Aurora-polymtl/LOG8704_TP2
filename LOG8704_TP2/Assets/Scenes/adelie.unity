@@ -5491,6 +5491,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2512387470528047719, guid: 48cb3fb68c91eb94999fd99957eb0cae, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1734799140}
+    - targetCorrespondingSourceObject: {fileID: 2512387470528047719, guid: 48cb3fb68c91eb94999fd99957eb0cae, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1734799142}
   m_SourcePrefab: {fileID: 100100000, guid: 48cb3fb68c91eb94999fd99957eb0cae, type: 3}
 --- !u!114 &1437993322 stripped
 MonoBehaviour:
@@ -5916,6 +5919,29 @@ MonoBehaviour:
   m_SerializedLibrary: {fileID: 11400000, guid: 06867adf98441b94f840b782cbd2dd93, type: 2}
   m_MaxNumberOfMovingImages: 1
   m_TrackedImagePrefab: {fileID: 0}
+--- !u!114 &1734799142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734799135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e9813c68d7d6f44282ace8bd2d1fd46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UseOptimizedControls: 0
+  m_MetaQuestLeftHandMesh: {fileID: 0}
+  m_MetaQuestRightHandMesh: {fileID: 0}
+  m_AndroidXRLeftHandMesh: {fileID: 7662334874634764649, guid: 266ca54c39b51904a9e8573e6b7ef393, type: 3}
+  m_AndroidXRRightHandMesh: {fileID: 1545392240172204152, guid: 2e2665e19128f4b4c9bce573ada57207, type: 3}
+  m_HandMeshMaterial: {fileID: 0}
+  m_DrawMeshes: 1
+  m_DebugDrawPrefab: {fileID: 1854295040675477396, guid: 74fe1036cbdd050429929b699a9dcab0, type: 3}
+  m_DebugDrawJoints: 1
+  m_VelocityPrefab: {fileID: 0}
+  m_VelocityType: 2
 --- !u!1 &1772513231
 GameObject:
   m_ObjectHideFlags: 0
@@ -8390,6 +8416,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2115132720}
   m_CullTransparentMesh: 1
+--- !u!1001 &1673752822542284195
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -6165746815647026244, guid: eb5671ed0146b0144b4ef5f877962154, type: 3}
+      propertyPath: m_AndroidXRLeftHandMesh
+      value: 
+      objectReference: {fileID: 7662334874634764649, guid: 266ca54c39b51904a9e8573e6b7ef393, type: 3}
+    - target: {fileID: -6165746815647026244, guid: eb5671ed0146b0144b4ef5f877962154, type: 3}
+      propertyPath: m_AndroidXRRightHandMesh
+      value: 
+      objectReference: {fileID: 1545392240172204152, guid: 2e2665e19128f4b4c9bce573ada57207, type: 3}
+    - target: {fileID: 1930134390095758423, guid: eb5671ed0146b0144b4ef5f877962154, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.793577
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930134390095758423, guid: eb5671ed0146b0144b4ef5f877962154, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.9605645
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930134390095758423, guid: eb5671ed0146b0144b4ef5f877962154, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.421175
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930134390095758423, guid: eb5671ed0146b0144b4ef5f877962154, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930134390095758423, guid: eb5671ed0146b0144b4ef5f877962154, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930134390095758423, guid: eb5671ed0146b0144b4ef5f877962154, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930134390095758423, guid: eb5671ed0146b0144b4ef5f877962154, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930134390095758423, guid: eb5671ed0146b0144b4ef5f877962154, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930134390095758423, guid: eb5671ed0146b0144b4ef5f877962154, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930134390095758423, guid: eb5671ed0146b0144b4ef5f877962154, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855921050657759604, guid: eb5671ed0146b0144b4ef5f877962154, type: 3}
+      propertyPath: m_Name
+      value: HandVisualizer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855921050657759604, guid: eb5671ed0146b0144b4ef5f877962154, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eb5671ed0146b0144b4ef5f877962154, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -8399,3 +8494,4 @@ SceneRoots:
   - {fileID: 955854885}
   - {fileID: 79811869}
   - {fileID: 1437993321}
+  - {fileID: 1673752822542284195}
