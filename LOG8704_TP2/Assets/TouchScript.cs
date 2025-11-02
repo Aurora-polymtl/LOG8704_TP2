@@ -1,9 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem; // Nouveau système d’entrée
+using UnityEngine.UI; // au lieu de TMPro
+using UnityEngine.EventSystems;
 
 public class TouchScript : MonoBehaviour
 {
     private Camera arCamera;
+    public GameObject cubePrefab;
+    public float spawnDistance = 1f;
+    public float minDistance = 0.3f;
+    public Text notificationText;
 
     void Start()
     {
@@ -29,13 +35,18 @@ public class TouchScript : MonoBehaviour
         // Mode APPAREIL MOBILE : toucher écran
         if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasPressedThisFrame)
         {
-            touchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+            var touch = Touchscreen.current.primaryTouch;
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(touch.touchId.ReadValue()))
+                return;
+            touchPosition = touch.position.ReadValue();
         }
 #endif
 
         // Si on a une position valide (clic ou toucher)
         if (touchPosition.HasValue)
         {
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+                return;
             Ray ray = arCamera.ScreenPointToRay(touchPosition.Value);
             // Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red, 0.5f);
 
@@ -51,11 +62,88 @@ public class TouchScript : MonoBehaviour
                         rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
                     }
                 }
+
+                else if (hit.transform.CompareTag("ARCube"))
+                {
+                    ARCube cube = hit.transform.GetComponent<ARCube>();
+                    if (cube != null)
+                    {
+                        cube.ActivateRotationAndJump();
+                    }
+                }
+
+                else
+                {
+                    Vector3 spawnPos = ray.origin + ray.direction * 1f;
+
+                    GameObject[] cubes = GameObject.FindGameObjectsWithTag("ARCube");
+                    bool tooClose = false;
+                    foreach (GameObject cube in cubes)
+                    {
+                        Debug.Log(Vector3.Distance(spawnPos, cube.transform.position));
+                        if (Vector3.Distance(spawnPos, cube.transform.position) < minDistance)
+                        {
+                            tooClose = true;
+                            break;
+                        }
+                    }
+                    if (tooClose)
+                    {
+                        ShowNotification("Un cube est trop proche");
+                    }
+                    else
+                    {
+                        GameObject newCube = Instantiate(cubePrefab, spawnPos, Quaternion.identity);
+                        newCube.tag = "ARCube";
+
+                        if (newCube.GetComponent<ARCube>() == null)
+                            newCube.AddComponent<ARCube>();
+                    }
+                }
             }
             else
             {
                 Debug.Log("Ray missed everything.");
+
+
+                Vector3 spawnPos = ray.origin + ray.direction * 1f;
+
+                GameObject[] cubes = GameObject.FindGameObjectsWithTag("ARCube");
+                bool tooClose = false;
+                foreach (GameObject cube in cubes)
+                {
+                    Debug.Log(Vector3.Distance(spawnPos, cube.transform.position));
+                    if (Vector3.Distance(spawnPos, cube.transform.position) < minDistance)
+                    {
+                        tooClose = true;
+                        break;
+                    }
+                }
+                if (tooClose)
+                {
+                    ShowNotification("Oh le cube est trop proche");
+                }
+                else
+                {
+                    GameObject newCube = Instantiate(cubePrefab, spawnPos, Quaternion.identity);
+                    newCube.tag = "ARCube";
+
+                    if (newCube.GetComponent<ARCube>() == null)
+                        newCube.AddComponent<ARCube>();
+                }
             }
         }
+    }
+    private void ShowNotification(string message)
+    {
+        StopAllCoroutines();
+        StartCoroutine(ShowNotificationCoroutine(message, 2f));
+    }
+
+    private System.Collections.IEnumerator ShowNotificationCoroutine(string message, float duration)
+    {
+        notificationText.text = message;
+        yield return new WaitForSeconds(duration);
+        notificationText.text = "";
     }
 }

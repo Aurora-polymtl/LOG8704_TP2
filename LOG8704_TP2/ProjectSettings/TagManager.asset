@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - TouchableCube
+  - ARCube
   layers:
   - Default
   - TransparentFX
