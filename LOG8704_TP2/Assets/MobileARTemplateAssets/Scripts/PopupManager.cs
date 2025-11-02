@@ -8,12 +8,12 @@ public class MultiPagePopupManager : MonoBehaviour
     [SerializeField] private TouchScript touchScript;
 
     [Header("UI References")]
-    public GameObject popupPanel;             // panel principal
-    public RectTransform pagesContainer;      // conteneur parent des pages
-    public List<GameObject> pages;            // remplir dans l'inspector (Page1, Page2...)
-    public Button nextButton;             // OK/Close
+    public GameObject popupPanel;
+    public RectTransform pagesContainer;      
+    public List<GameObject> pages;         
+    public Button nextButton;        
     public Button helpButton; 
-    public Button deleteAllCubes;                 // le "?" global
+    public Button deleteAllCubes;        
 
 
     public int startPageIndex = 0;
@@ -23,11 +23,10 @@ public class MultiPagePopupManager : MonoBehaviour
 
     void Awake()
     {
-        // Sécurité : assignations null check
         if (popupPanel == null)
-            Debug.LogError("PopupPanel non assigné dans MultiPagePopupManager !");
+            Debug.LogError("Missing popup panel");
         if (pagesContainer == null && pages == null)
-            Debug.LogWarning("PagesContainer/patterns non assignés. Assure-toi d'avoir des pages.");
+            Debug.LogWarning("Missing pages container");
 
         // Hook boutons
         if (nextButton != null) nextButton.onClick.AddListener(OnNext);
@@ -65,9 +64,6 @@ public class MultiPagePopupManager : MonoBehaviour
                     nextText.text = "Suivant >>";
             }
         }
-
-        // Option: change close text to "OK" or "Finish" on last page (if using Text child)
-        // Example: if closeButton child Text exists, update it here
     }
 
     public void OnNext()
@@ -84,16 +80,6 @@ public class MultiPagePopupManager : MonoBehaviour
         }
 
     }
-
-    //public void OnClose()
-    //{
-    //    popupPanel.SetActive(false);
-    //    if (helpButton != null) helpButton.gameObject.SetActive(true);
-    //    if (deleteAllCubes != null) deleteAllCubes.gameObject.SetActive(true);
-    //    if (touchScript != null)
-    //        touchScript.enabled = true;
-
-    //}
 
     public void OpenPopup()
     {

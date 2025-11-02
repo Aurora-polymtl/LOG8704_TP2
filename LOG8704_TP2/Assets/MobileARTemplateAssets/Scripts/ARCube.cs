@@ -6,7 +6,7 @@ public class ARCube : MonoBehaviour
     private bool isRotating = false;
     private float rotationDuration = 1.5f;
     private float timer = 0f;
-    public Vector3 torqueForce = new Vector3(0, 300f, 0); // rotation sur y
+    public Vector3 torqueForce = new Vector3(0, 300f, 0); 
 
     void Awake()
     {
@@ -16,8 +16,8 @@ public class ARCube : MonoBehaviour
             rb = gameObject.AddComponent<Rigidbody>();
         }
 
-        rb.useGravity = false;   // cube flottant au départ
-        rb.isKinematic = true;   // cube immobile
+        rb.useGravity = false;
+        rb.isKinematic = true;   
     }
 
     void Update()
@@ -27,24 +27,18 @@ public class ARCube : MonoBehaviour
             timer += Time.deltaTime;
             if (timer >= rotationDuration)
             {
-                // Fin de la rotation
                 isRotating = false;
                 timer = 0f;
-
-                // Rebloquer le cube
                 rb.isKinematic = true;
-                //b.useGravity = false;
             }
         }
     }
 
     public void ActivateRotationAndJump()
     {
-        // Débloquer le cube
         rb.isKinematic = false;
         rb.useGravity = false;
 
-        // Appliquer rotation
         rb.constraints = RigidbodyConstraints.FreezePositionX |
                  RigidbodyConstraints.FreezePositionY |
                  RigidbodyConstraints.FreezePositionZ |
@@ -53,7 +47,6 @@ public class ARCube : MonoBehaviour
 
         rb.AddTorque(Vector3.up * 5f, ForceMode.Impulse);
 
-        // Démarrer le timer
         isRotating = true;
         timer = 0f;
     }

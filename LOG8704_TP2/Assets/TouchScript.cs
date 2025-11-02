@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // Nouveau système d’entrée
-using UnityEngine.UI; // au lieu de TMPro
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class TouchScript : MonoBehaviour
