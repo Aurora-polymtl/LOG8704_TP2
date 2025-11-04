@@ -1,4 +1,4 @@
-# LOG8704_TP2
+# TP2 LOG8704
 # Application de Réalité Augmentée (AR)
 
 ## Objectif  
