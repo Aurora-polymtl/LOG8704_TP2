@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bottle 2 crumple dirt Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1380694466916898807, guid: 0ce3fb7cd573ec244a13a68180791551, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1757220662719384909, guid: 0ce3fb7cd573ec244a13a68180791551, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -52,6 +56,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2416731163471278430, guid: 0ce3fb7cd573ec244a13a68180791551, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868414419215627034, guid: 0ce3fb7cd573ec244a13a68180791551, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4932758104558801830, guid: 0ce3fb7cd573ec244a13a68180791551, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5295271857512059244, guid: 0ce3fb7cd573ec244a13a68180791551, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6998768686475013719, guid: 0ce3fb7cd573ec244a13a68180791551, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462807191605552536, guid: 0ce3fb7cd573ec244a13a68180791551, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -77,4 +105,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d95692ffb8b8d46923579b686ff4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wasteType: plastique
+  wasteType: 1

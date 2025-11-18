@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Recycle cardboard folded 2 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2409371914571502592, guid: 840c54c222a9a994096d822081a6504f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3036585382824513210, guid: 840c54c222a9a994096d822081a6504f, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.4619472
@@ -89,4 +93,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d95692ffb8b8d46923579b686ff4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wasteType: carton
+  wasteType: 1

@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pizza box 1 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2533839907394124749, guid: 7e2f879184dbcd04a88fb963ef472f8f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2909836993357619575, guid: 7e2f879184dbcd04a88fb963ef472f8f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -52,6 +56,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6090500173105670802, guid: 7e2f879184dbcd04a88fb963ef472f8f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6828842746391560228, guid: 7e2f879184dbcd04a88fb963ef472f8f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984076399626008287, guid: 7e2f879184dbcd04a88fb963ef472f8f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9160269014910501589, guid: 7e2f879184dbcd04a88fb963ef472f8f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -77,4 +97,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d95692ffb8b8d46923579b686ff4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wasteType: carton
+  wasteType: 2

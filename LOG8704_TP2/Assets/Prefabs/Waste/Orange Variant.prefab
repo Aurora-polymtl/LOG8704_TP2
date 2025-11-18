@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1423597227484026460, guid: 60d935613bf646d42b9fdbe38d8cefb4, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1768351759481883878, guid: 60d935613bf646d42b9fdbe38d8cefb4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -52,6 +56,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2926846748679637147, guid: 60d935613bf646d42b9fdbe38d8cefb4, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4055316694596694655, guid: 60d935613bf646d42b9fdbe38d8cefb4, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4659434204212989885, guid: 60d935613bf646d42b9fdbe38d8cefb4, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -77,4 +93,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d95692ffb8b8d46923579b686ff4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wasteType: nourriture
+  wasteType: 2
