@@ -7,12 +7,21 @@ public class HighlightColor : MonoBehaviour
     private Image image;
     private MeshRenderer renderer3D;
 
+    private float originalY;
+
+    [Header("Highlight Settings")]
     public Color highlightColor = Color.yellow;
+    public float liftAmount = 0.1f;       // en pixels si UI, ou units si 3D
+    public float liftSpeed = 10f;
+
+    private bool isHighlighted = false;
 
     void Awake()
     {
         image = GetComponent<Image>();
         renderer3D = GetComponent<MeshRenderer>();
+
+        originalY = transform.localPosition.y;
 
         if (image != null)
             baseColor = image.color;
@@ -20,8 +29,18 @@ public class HighlightColor : MonoBehaviour
             baseColor = renderer3D.material.color;
     }
 
+    void Update()
+    {
+        float targetY = originalY + (isHighlighted ? liftAmount : 0f);
+        Vector3 pos = transform.localPosition;
+        pos.y = Mathf.Lerp(pos.y, targetY, Time.deltaTime * liftSpeed);
+        transform.localPosition = pos; // seulement Y
+    }
+
     public void SetHighlight(bool active)
     {
+        isHighlighted = active;
+
         if (image != null)
             image.color = active ? highlightColor : baseColor;
 

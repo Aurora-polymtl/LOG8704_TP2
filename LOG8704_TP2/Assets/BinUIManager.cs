@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class BinUIManager : MonoBehaviour
@@ -11,6 +13,9 @@ public class BinUIManager : MonoBehaviour
     [Header("Taille des bacs (dans le Canvas)")]
     public Vector2 binSize = new Vector2(150, 150); // pixels
 
+    [HideInInspector]
+    public List<GameObject> bins = new List<GameObject>();
+
     void Start()
     {
         // Vérifie la présence du conteneur
@@ -21,14 +26,16 @@ public class BinUIManager : MonoBehaviour
         }
 
         // Crée et place les bacs
-        CreateBinUI(wasteBinPrefab, "Déchets");
-        CreateBinUI(recycleBinPrefab, "Recyclage");
-        CreateBinUI(compostBinPrefab, "Compost");
+        bins.Add(CreateBinUI(wasteBinPrefab, "Déchets"));
+        bins.Add(CreateBinUI(recycleBinPrefab, "Recyclage"));
+        bins.Add(CreateBinUI(compostBinPrefab, "Compost"));
+
+        SetBinsVisible(false);
     }
 
-    void CreateBinUI(GameObject prefab, string name)
+    GameObject CreateBinUI(GameObject prefab, string name)
     {
-        if (prefab == null) return;
+        if (prefab == null) return null;
 
         GameObject binUI = Instantiate(prefab, binContainer);
         binUI.name = name;
@@ -39,5 +46,22 @@ public class BinUIManager : MonoBehaviour
             rect = binUI.AddComponent<RectTransform>();
 
         rect.sizeDelta = binSize;
+        return binUI;
+    }
+
+    public void SetBinsVisible(bool visible)
+    {
+        foreach (var bin in bins)
+        {
+            if (bin != null)
+            {
+                // Remet la couleur de base avant de cacher
+                HighlightColor highlight = bin.GetComponent<HighlightColor>();
+                if (highlight != null)
+                    highlight.SetHighlight(false);
+
+                bin.SetActive(visible);
+            }
+        }
     }
 }

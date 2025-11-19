@@ -69,5 +69,6 @@ public class WasteSpawner : MonoBehaviour
                 count++;
             }
         }
+        WasteManager.Instance.RegisterInitialWaste(numberOfWaste);
     }
 }

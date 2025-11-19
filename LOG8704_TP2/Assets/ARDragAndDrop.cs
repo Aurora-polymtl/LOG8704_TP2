@@ -15,10 +15,23 @@ public class ARDragAndDrop : MonoBehaviour
     private Transform grabbedObject = null;
     private Rigidbody grabbedRb = null;
 
+    public UIMessageManager uiMessageManager;
+    public ScoreManager scoreManager;
+    public BinUIManager binUIManager;
+
     void Awake()
     {
         if (arCamera == null)
             arCamera = Camera.main;
+    }
+
+    void Start()
+    {
+        // Trouve automatiquement le UI manager
+        if (uiMessageManager == null)
+            uiMessageManager = FindFirstObjectByType<UIMessageManager>();
+        if (scoreManager == null)
+            scoreManager = FindFirstObjectByType<ScoreManager>();
     }
 
     void Update()
@@ -27,21 +40,43 @@ public class ARDragAndDrop : MonoBehaviour
         if (pointerPos == Vector2.negativeInfinity)
             return;
 
+#if UNITY_EDITOR || UNITY_STANDALONE
         if (Mouse.current != null)
         {
-            // CLIC POUR PRENDRE
             if (Mouse.current.leftButton.wasPressedThisFrame)
                 TryGrab(pointerPos);
 
-            // MAINTIEN POUR DÉPLACER
             if (Mouse.current.leftButton.isPressed)
                 DragObject(pointerPos);
 
-            // RELÂCHE POUR LÂCHER
             if (Mouse.current.leftButton.wasReleasedThisFrame)
                 Release();
         }
+#else
+    // Mobile touch
+    if (Touchscreen.current != null && Touchscreen.current.touches.Count > 0)
+    {
+        var touch = Touchscreen.current.touches[0];
+        switch (touch.phase.ReadValue())
+        {
+            case UnityEngine.InputSystem.TouchPhase.Began:
+                TryGrab(pointerPos);
+                break;
+
+            case UnityEngine.InputSystem.TouchPhase.Moved:
+            case UnityEngine.InputSystem.TouchPhase.Stationary:
+                DragObject(pointerPos);
+                break;
+
+            case UnityEngine.InputSystem.TouchPhase.Ended:
+            case UnityEngine.InputSystem.TouchPhase.Canceled:
+                Release();
+                break;
+        }
     }
+#endif
+    }
+
 
     // --------------------------
     // Grab
@@ -57,6 +92,9 @@ public class ARDragAndDrop : MonoBehaviour
 
             if (grabbedRb != null)
                 grabbedRb.isKinematic = true;  // empêche la physique pendant le drag
+            
+            if (binUIManager != null)
+                binUIManager.SetBinsVisible(true);
         }
     }
 
@@ -94,44 +132,80 @@ public class ARDragAndDrop : MonoBehaviour
         if (grabbedObject == null) return;
 
         WasteItem item = grabbedObject.GetComponent<WasteItem>();
-        if (item != null)
-        {
-            // On cherche toutes les poubelles
-            TrashBin[] bins = FindObjectsOfType<TrashBin>();
-            foreach (TrashBin bin in bins)
-            {
-                if (bin.IsWasteOverlapping(item))
-                {
-                    if (item.wasteType == bin.binType)
-                    {
-                        Debug.Log(item.name + " est correctement déposé dans " + bin.binType);
-                        // ici tu peux faire score, effet visuel, destroy item etc.
-                    }
-                    else
-                    {
-                        Debug.Log(item.name + " est dans la mauvaise poubelle !");
-                        // feedback visuel ou sonore
-                    }
+        if (item == null) { grabbedObject = null; return; }
 
-                    break; // on ne vérifie qu’une poubelle
-                }
+        TrashBin touchedBin = CheckDropZone(item);
+
+        if (touchedBin != null)
+        {
+            if (item.wasteType == touchedBin.binType)
+            {
+                uiMessageManager.ShowCorrect();
+                scoreManager.AddPoint();
+                Debug.Log("CORRECT : " + item.name + " -> " + touchedBin.binType);
+                
             }
+            else
+            {
+                uiMessageManager.ShowWrong();
+                Debug.Log("MAUVAISE POUBELLE pour " + item.name);                
+            }
+            Destroy(item.gameObject);
+            WasteManager.Instance.WasteRemoved();
+        }
+        else
+        {
+            Debug.Log("Déchet relâché, mais pas sur une poubelle.");
         }
 
-        grabbedObject = null; // on lâche le déchet
+        if (binUIManager != null)
+        binUIManager.SetBinsVisible(false);
+
+        grabbedObject = null;
     }
+
 
     // --------------------------
     // Input system
     // --------------------------
     Vector2 GetPointerPosition()
     {
+#if UNITY_EDITOR || UNITY_STANDALONE
         if (Mouse.current != null)
             return Mouse.current.position.ReadValue();
+#endif
 
         if (Touchscreen.current != null && Touchscreen.current.touches.Count > 0)
             return Touchscreen.current.touches[0].position.ReadValue();
 
         return Vector2.negativeInfinity;
     }
+
+
+    public TrashBin CheckDropZone(WasteItem item)
+    {
+        TrashBin[] bins = FindObjectsByType<TrashBin>(FindObjectsSortMode.None);
+        foreach (TrashBin bin in bins)
+        {
+            Collider c = bin.GetComponent<Collider>();
+            if (c == null) continue;
+
+            // On construit une OverlapBox centrée sur la poubelle
+            Collider[] hits = Physics.OverlapBox(
+                c.bounds.center,         // centre de la zone
+                c.bounds.extents,        // demi-dimensions
+                bin.transform.rotation   // orientation
+            );
+
+            // On vérifie si le déchet se trouve parmi les hits
+            foreach (Collider hit in hits)
+            {
+                if (hit.gameObject == item.gameObject)
+                    return bin; // trouvé !
+            }
+        }
+
+        return null; // aucun bin touché
+    }
+
 }

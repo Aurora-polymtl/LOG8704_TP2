@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 686508543496338057, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.66
+      value: 0.28
       objectReference: {fileID: 0}
     - target: {fileID: 686508543496338057, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.61
+      value: 0.28
       objectReference: {fileID: 0}
     - target: {fileID: 686508543496338057, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
       propertyPath: m_LocalScale.z
-      value: -0.7
+      value: -0.31
       objectReference: {fileID: 0}
     - target: {fileID: 686508543496338057, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
       propertyPath: m_LocalPosition.x
@@ -74,12 +74,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4602025962161850522, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
       insertIndex: 3
-      addedObject: {fileID: 7604893269111785405}
-    - targetCorrespondingSourceObject: {fileID: 4602025962161850522, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
-      insertIndex: 4
       addedObject: {fileID: -8701343894975886796}
     - targetCorrespondingSourceObject: {fileID: 4602025962161850522, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
-      insertIndex: 5
+      insertIndex: 4
       addedObject: {fileID: -1865183585856384857}
     - targetCorrespondingSourceObject: {fileID: 4602025962161850522, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
       insertIndex: -1
@@ -90,20 +87,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4602025962161850522, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
   m_PrefabInstance: {fileID: 2884354957418790928}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7604893269111785405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1718940983692740746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9d4364d8d76faa46b7e50cee71b298b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  img: {fileID: 0}
-  highlightColor: {r: 0.98490566, g: 0.95002556, b: 0.39953715, a: 0.6}
 --- !u!114 &-8701343894975886796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,6 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  liftAmount: 0.1
+  liftSpeed: 10
 --- !u!114 &-1865183585856384857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,5 +134,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.58, y: 1.62, z: 0.83}
+  m_Size: {x: 0.67, y: 1.5, z: 1.21}
   m_Center: {x: 0.00000017881393, y: 0.58679336, z: -0.042004}

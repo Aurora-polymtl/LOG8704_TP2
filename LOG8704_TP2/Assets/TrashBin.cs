@@ -5,6 +5,7 @@ public class TrashBin : MonoBehaviour
     public WasteType binType;
 
     // méthode pour vérifier si un déchet est dans la zone
+    /*
     public bool IsWasteOverlapping(WasteItem item)
     {
         Collider binCollider = GetComponent<Collider>();
@@ -14,5 +15,5 @@ public class TrashBin : MonoBehaviour
 
         // simple check : est-ce que le centre du déchet est dans le collider ?
         return binCollider.bounds.Contains(itemCollider.bounds.center);
-    }
+    }*/
 }
