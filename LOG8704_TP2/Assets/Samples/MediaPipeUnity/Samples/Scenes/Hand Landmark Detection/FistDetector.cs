@@ -5,12 +5,18 @@ using UnityEngine;
 
 public class FistDetector : MonoBehaviour
 {
-    [SerializeField] private MultiHandLandmarkListAnnotation landmarkAnnotation; // Référence dans l’inspecteur
+    [SerializeField] private MultiHandLandmarkListAnnotation landmarkAnnotation;
     [SerializeField] private HandLandmarkerResultAnnotationController annotationController;
+
+    [Header("Interaction Main")]
+    [SerializeField] private float closedThreshold = 0.1f;
+
+    [Header("Event Channel")]
+    [SerializeField] private FistStateChannel fistStateChannel; 
 
     private HandLandmarkerResult latestResult;
     private bool hasResult = false;
-    [SerializeField] private float closedThreshold = 0.1f;
+    private HandState currentState = HandState.None;
 
     public void OnHandLandmarkResult(HandLandmarkerResult result)
     {
@@ -20,10 +26,20 @@ public class FistDetector : MonoBehaviour
 
     void Update()
     {
+        HandState newState;
         if (!hasResult || latestResult.handLandmarks == null || latestResult.handLandmarks.Count == 0)
+        {
+            newState = HandState.None;
+            if (newState != currentState)
+            {
+                currentState = newState;
+                fistStateChannel?.RaiseEvent(newState);
+                Debug.Log($"Nouvel état de main : {newState}");
+            }
             return;
+        }
 
-        var handLandmarks = latestResult.handLandmarks[0].landmarks;
+            var handLandmarks = latestResult.handLandmarks[0].landmarks;
         int fingersClosed = 0;
         int[] tipIndices = { 8, 12, 16, 20 };
 
@@ -31,33 +47,40 @@ public class FistDetector : MonoBehaviour
         {
             var tip = handLandmarks[i];
             var wrist = handLandmarks[0];
-            float dist = Vector3.Distance(new Vector3(tip.x, tip.y, tip.z),
-                                          new Vector3(wrist.x, wrist.y, wrist.z));
+            float dist = Vector3.Distance(
+                new Vector3(tip.x, tip.y, tip.z),
+                new Vector3(wrist.x, wrist.y, wrist.z)
+            );
 
             if (dist < closedThreshold)
                 fingersClosed++;
         }
 
         if (fingersClosed == 4)
-        {
-            Debug.Log("Poing fermé !");
-            landmarkAnnotation.SetRightLandmarkColor(Color.red);
-            landmarkAnnotation.SetLeftLandmarkColor(Color.red);
-        }
+            newState = HandState.Closed;
         else if (fingersClosed == 0)
-        {
-            Debug.Log("Poing ouvert !");
-            landmarkAnnotation.SetRightLandmarkColor(Color.green);
-            landmarkAnnotation.SetLeftLandmarkColor(Color.green);
-        }
+            newState = HandState.Open;
         else
+            newState = HandState.Partial;
+
+        // On ne déclenche que si l’état change
+        if (newState != currentState)
         {
-            Debug.Log("Main partiellement fermée");
-            landmarkAnnotation.SetRightLandmarkColor(Color.yellow);
-            landmarkAnnotation.SetLeftLandmarkColor(Color.yellow);
+            currentState = newState;
+            fistStateChannel?.RaiseEvent(newState);
+            Debug.Log($"Nouvel état de main : {newState}");
         }
 
-        annotationController.DrawNow(latestResult);
+        // Optionnel : coloration des landmarks
+        //Color color = newState switch
+        //{
+        //    HandState.Closed => Color.red,
+        //    HandState.Open => Color.green,
+        //    _ => Color.yellow
+        //};
 
+        //landmarkAnnotation.SetRightLandmarkColor(color);
+        //landmarkAnnotation.SetLeftLandmarkColor(color);
+        //annotationController.DrawNow(latestResult);
     }
 }

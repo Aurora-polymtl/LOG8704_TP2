@@ -21,7 +21,7 @@ namespace Mediapipe.Unity.Sample.HandLandmarkDetection
 
         // Ajouter au début de la classe
         [SerializeField] private FistDetector fistDetector;
-
+        //[SerializeField] private HandObjectInteractionManager handObjectInteraction;
         public override void Stop()
         {
             base.Stop();
@@ -163,13 +163,22 @@ namespace Mediapipe.Unity.Sample.HandLandmarkDetection
             if (fistDetector == null)
             {
                 Debug.Log("fist detector null !");
-
             }
-            // Envoyer le résultat au FistDetector
+            //if (handObjectInteraction == null)
+            //{
+            //    Debug.Log("hand object interaction null !");
+            //}
+
+            // Envoyer le résultat
             if (fistDetector != null)
             {
                 fistDetector.OnHandLandmarkResult(result);
+                Debug.Log(result);
             }
+            //if (handObjectInteraction != null)
+            //{
+            //    handObjectInteraction.OnHandLandmarkResult(result);
+            //}
         }
 
     }
