@@ -600,7 +600,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -175}
+  m_AnchoredPosition: {x: -50, y: -175}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &607241923
@@ -1154,9 +1154,10 @@ MonoBehaviour:
   - {fileID: 4226305751518037642, guid: 4bd44f9f72c691a49a95998321c5c4be, type: 3}
   - {fileID: 5354804973752064842, guid: 1890e1011ae3a5b4fa1e53ed2a87c43d, type: 3}
   - {fileID: 5650679588541385868, guid: 1787e44ba3126b4449443461afe32d27, type: 3}
-  numberOfWaste: 10
-  spawnRadius: 4.5
-  minSpacing: 0.5
+  numberOfWaste: 25
+  spawnRadius: 2.5
+  minSpacing: 0.2
+  spawnDelay: 5
 --- !u!4 &1652130056
 Transform:
   m_ObjectHideFlags: 0
@@ -1308,7 +1309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arCamera: {fileID: 1130344747}
   distance: 1
-  followSpeed: 1
+  followSpeed: 0.6
 --- !u!114 &1669882652
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -28,6 +28,7 @@ public class WasteManager : MonoBehaviour
 
         if (activeWasteCount <= 0)
         {
+            SFXManager.Instance.PlayEndGame();
             TriggerCompletionEffect();
             StartCoroutine(ReturnToMenuAfterDelay(30f));
         }

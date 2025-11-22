@@ -89,6 +89,7 @@ public class ARDragAndDrop : MonoBehaviour
         {
             grabbedObject = hit.collider.transform;
             grabbedRb = grabbedObject.GetComponent<Rigidbody>();
+            SFXManager.Instance.PlayPickup();
 
             if (grabbedRb != null)
                 grabbedRb.isKinematic = true;  // empêche la physique pendant le drag
@@ -142,12 +143,14 @@ public class ARDragAndDrop : MonoBehaviour
             {
                 uiMessageManager.ShowCorrect();
                 scoreManager.AddPoint();
+                SFXManager.Instance.PlaySuccess();
                 Debug.Log("CORRECT : " + item.name + " -> " + touchedBin.binType);
                 
             }
             else
             {
                 uiMessageManager.ShowWrong();
+                SFXManager.Instance.PlayFail();
                 Debug.Log("MAUVAISE POUBELLE pour " + item.name);                
             }
             Destroy(item.gameObject);

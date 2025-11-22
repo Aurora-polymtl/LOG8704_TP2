@@ -19,56 +19,75 @@ public class WasteSpawner : MonoBehaviour
     public float spawnRadius = 2.5f;
 
     [Tooltip("Distance minimale entre chaque déchet")]
-    public float minSpacing = 0.3f;
+    public float minSpacing = 0.1f;
 
     private List<GameObject> spawnedWaste = new List<GameObject>();
     static List<ARRaycastHit> hits = new List<ARRaycastHit>();
     private bool spawned = false;
 
+    public float spawnDelay = 5f; // attendre 5 secondes avant de spawn
+
+    private float timer = 0f;
+
     void Update()
     {
         if (spawned) return;
 
-        // On attend un plan AR valide (au centre de l'écran)
-        Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
-        if (raycastManager.Raycast(screenCenter, hits, TrackableType.PlaneWithinPolygon))
+        timer += Time.deltaTime;
+
+        // On attend le délai et qu'au moins un plan soit détecté
+        if (timer >= spawnDelay && raycastManager.Raycast(new Vector2(Screen.width / 2, Screen.height / 2), hits, TrackableType.PlaneWithinPolygon))
         {
-            Pose hitPose = hits[0].pose;
-            SpawnWasteOnLargeArea(hitPose.position);
+            SpawnWasteOnVisibleSurfaces();
             spawned = true;
         }
     }
 
-    void SpawnWasteOnLargeArea(Vector3 center)
+    void SpawnWasteOnVisibleSurfaces()
     {
         int count = 0;
-        int safetyLimit = 500; // évite boucle infinie
+        int maxAttempts = numberOfWaste * 30; // sécurité anti boucle infinie
 
-        while (count < numberOfWaste && safetyLimit-- > 0)
+        while (count < numberOfWaste && maxAttempts-- > 0)
         {
-            // Position aléatoire dans un disque de rayon spawnRadius
-            Vector2 randomCircle = Random.insideUnitCircle * spawnRadius;
-            Vector3 randomPos = center + new Vector3(randomCircle.x, 0, randomCircle.y);
+            // 1) Point aléatoire sur l’écran, mais pas trop au bord
+            Vector2 randomScreenPos = new Vector2(
+                Random.Range(Screen.width * 0.15f, Screen.width * 0.85f),
+                Random.Range(Screen.height * 0.15f, Screen.height * 0.85f)
+            );
 
-            // Vérifie l'espacement minimal entre les objets
-            bool tooClose = false;
-            foreach (var obj in spawnedWaste)
+            // 2) AR Raycast depuis la caméra
+            if (raycastManager.Raycast(randomScreenPos, hits, TrackableType.PlaneWithinPolygon))
             {
-                if (Vector3.Distance(obj.transform.position, randomPos) < minSpacing)
+                Pose hitPose = hits[0].pose;
+
+                // 3) Vérifier distance minimale entre déchets
+                bool tooClose = false;
+                foreach (var w in spawnedWaste)
                 {
-                    tooClose = true;
-                    break;
+                    if (Vector3.Distance(w.transform.position, hitPose.position) < minSpacing)
+                    {
+                        tooClose = true;
+                        break;
+                    }
                 }
-            }
+                if (tooClose) continue;
 
-            if (!tooClose)
-            {
-                var prefab = wastePrefabs[Random.Range(0, wastePrefabs.Count)];
-                var waste = Instantiate(prefab, randomPos, Quaternion.Euler(0, Random.Range(0, 360), 0));
+                // 4) Instanciation du déchet
+                GameObject prefab = wastePrefabs[Random.Range(0, wastePrefabs.Count)];
+                GameObject waste = Instantiate(
+                    prefab,
+                    hitPose.position,
+                    Quaternion.Euler(0, Random.Range(0, 360), 0)
+                );
+
                 spawnedWaste.Add(waste);
                 count++;
             }
         }
-        WasteManager.Instance.RegisterInitialWaste(numberOfWaste);
+
+        WasteManager.Instance.RegisterInitialWaste(spawnedWaste.Count);
     }
+
+
 }
