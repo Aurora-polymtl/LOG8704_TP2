@@ -94,3 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wasteType: 1
+  factAboutWaste: "Le carton propre peut devenir une nouvelle bo\xEEte apr\xE8s recyclage.
+    Plus on recycle le carton, moins on doit couper d\u2019arbres pour en fabriquer
+    du nouveau. Il suffit juste de le garder propre et sec pour qu\u2019il puisse
+    \xEAtre r\xE9utilis\xE9."
+  wasteSprite: {fileID: 21300000, guid: 6b54aa59ef1c53845b961de186b743fc, type: 3}

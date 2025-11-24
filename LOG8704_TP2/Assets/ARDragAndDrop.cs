@@ -133,6 +133,9 @@ public class ARDragAndDrop : MonoBehaviour
         if (grabbedObject == null) return;
 
         WasteItem item = grabbedObject.GetComponent<WasteItem>();
+        string info = item.factAboutWaste;
+        string resultMsg = "";
+        bool correct = false;
         if (item == null) { grabbedObject = null; return; }
 
         TrashBin touchedBin = CheckDropZone(item);
@@ -141,7 +144,9 @@ public class ARDragAndDrop : MonoBehaviour
         {
             if (item.wasteType == touchedBin.binType)
             {
-                uiMessageManager.ShowCorrect();
+                // uiMessageManager.ShowCorrect();
+                resultMsg = "Bonne poubelle!";
+                correct = true;
                 scoreManager.AddPoint();
                 SFXManager.Instance.PlaySuccess();
                 Debug.Log("CORRECT : " + item.name + " -> " + touchedBin.binType);
@@ -149,12 +154,16 @@ public class ARDragAndDrop : MonoBehaviour
             }
             else
             {
-                uiMessageManager.ShowWrong();
+                // uiMessageManager.ShowWrong();
+                resultMsg = "Mauvaise poubelle!";
                 SFXManager.Instance.PlayFail();
                 Debug.Log("MAUVAISE POUBELLE pour " + item.name);                
             }
             Destroy(item.gameObject);
             WasteManager.Instance.WasteRemoved();
+            string fact = info != null ? info : "Aucune information disponible.";
+            Sprite sprite = item != null ? item.wasteSprite : null;
+            WasteInfoPopupUI.Instance.ShowPopup(resultMsg, fact, sprite, correct);
         }
         else
         {

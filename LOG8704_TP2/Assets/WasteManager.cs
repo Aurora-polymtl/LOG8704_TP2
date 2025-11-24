@@ -8,7 +8,8 @@ public class WasteManager : MonoBehaviour
 
     public int activeWasteCount = 0;
     public GameObject completionParticlesPrefab;
-    public string menuSceneName = "Menu";
+
+    public ScoreManager scoreManager;
 
     private void Awake()
     {
@@ -30,7 +31,7 @@ public class WasteManager : MonoBehaviour
         {
             SFXManager.Instance.PlayEndGame();
             TriggerCompletionEffect();
-            StartCoroutine(ReturnToMenuAfterDelay(30f));
+            StartCoroutine(EndGameSequence());
         }
     }
 
@@ -45,9 +46,22 @@ public class WasteManager : MonoBehaviour
         }
     }
 
-    private IEnumerator ReturnToMenuAfterDelay(float delay)
+    IEnumerator EndGameSequence()
     {
-        yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(menuSceneName);
+        // 15 secondes pour laisser le WasteInfoPopup se fermer manuellement
+        yield return new WaitForSeconds(15f);
+
+        // On ferme le popup d'info s'il est encore ouvert
+        if (WasteInfoPopupUI.Instance != null)
+            WasteInfoPopupUI.Instance.ClosePopup();
+
+        // Cache le vieux compteur de score
+        if (scoreManager != null && scoreManager.scoreText != null)
+            scoreManager.hideScore();
+            Debug.Log("Hiding score text.");
+
+        // Affiche le nouveau panel
+        EndGamePanel.Instance.Show();
     }
+
 }

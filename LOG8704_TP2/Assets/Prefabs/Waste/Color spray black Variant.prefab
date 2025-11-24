@@ -94,3 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wasteType: 0
+  factAboutWaste: "Les a\xE9rosols contiennent souvent des produits qui peuvent \xEAtre
+    dangereux ou inflammables. C\u2019est pour \xE7a qu\u2019on ne doit jamais les
+    \xE9craser ou les jeter n\u2019importe o\xF9. Ils doivent aller dans la poubelle,
+    et parfois m\xEAme dans une collecte sp\xE9ciale selon les villes."
+  wasteSprite: {fileID: 21300000, guid: 38a27f64f3231fd468b5c018ae5fbbda, type: 3}

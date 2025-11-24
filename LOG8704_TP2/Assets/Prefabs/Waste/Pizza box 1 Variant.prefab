@@ -110,3 +110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wasteType: 2
+  factAboutWaste: "Le carton propre peut \xEAtre recycl\xE9, mais une bo\xEEte de
+    pizza pleine d\u2019huile et de sauce salit le recyclage. Dans ce cas, elle peut
+    aller au compost, o\xF9 elle se d\xE9composera naturellement. C\u2019est une
+    bonne fa\xE7on d\u2019\xE9viter le gaspillage !"
+  wasteSprite: {fileID: 21300000, guid: 3e99dc702bb361640a9c1a3a3a83f6a3, type: 3}

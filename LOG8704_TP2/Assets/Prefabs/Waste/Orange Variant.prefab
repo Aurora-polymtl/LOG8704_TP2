@@ -94,3 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wasteType: 2
+  factAboutWaste: "Quand les restes de nourriture vont \xE0 la poubelle, ils se retrouvent
+    dans une d\xE9charge et produisent du m\xE9thane, un gaz tr\xE8s polluant. Mais
+    si on les composte, ils retournent \xE0 la terre et nourrissent le sol. C\u2019est
+    un geste simple qui aide vraiment l\u2019environnement !"
+  wasteSprite: {fileID: 21300000, guid: 773f395042bd80f4d8b7382dfd208c0b, type: 3}
