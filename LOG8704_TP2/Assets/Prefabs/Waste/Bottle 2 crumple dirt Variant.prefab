@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wasteType: 1
+  wasteName: Plastique
   factAboutWaste: "Les bouteilles en plastique peuvent \xEAtre refaites en nouveaux
     objets si on les recycle bien. \xC7a \xE9vite de fabriquer encore plus de plastique
     neuf, ce qui demande beaucoup d\u2019\xE9nergie. C\u2019est un geste qui aide

@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wasteType: 1
+  wasteName: Canette
   factAboutWaste: "L\u2019aluminium se recycle super bien et presque \xE0 l\u2019infini.
     Recycler une seule canette permet d'\xE9conomiser beaucoup d\u2019\xE9nergie,
     bien plus que ce qu\u2019on imagine. C\u2019est un tr\xE8s bon r\xE9flexe \xE0

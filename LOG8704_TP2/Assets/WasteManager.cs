@@ -8,12 +8,19 @@ public class WasteManager : MonoBehaviour
 
     public int activeWasteCount = 0;
     public GameObject completionParticlesPrefab;
+    public GameObject returnButton;
 
     public ScoreManager scoreManager;
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
+
     }
 
     // Appelé par ton spawner
@@ -25,6 +32,9 @@ public class WasteManager : MonoBehaviour
     // Appelé quand un déchet est détruit
     public void WasteRemoved()
     {
+        if (SceneManager.GetActiveScene().name != "InteractScene")
+            return;
+
         activeWasteCount--;
 
         if (activeWasteCount <= 0)
@@ -37,14 +47,30 @@ public class WasteManager : MonoBehaviour
 
     private void TriggerCompletionEffect()
     {
+        if (SceneManager.GetActiveScene().name != "InteractScene")
+            return;
+
+
         if (completionParticlesPrefab != null)
         {
-            Transform cam = Camera.main.transform;
+            Camera camRef = GetMainCamera();
+            if (camRef == null) return; // sécurité
+            Transform cam = camRef.transform;
             Vector3 pos = cam.position + cam.forward * 2.0f;
 
             Instantiate(completionParticlesPrefab, pos, Quaternion.identity);
         }
     }
+
+    private Camera GetMainCamera()
+    {
+        if (Camera.main != null)
+            return Camera.main;
+
+        // fallback si Camera.main n’est pas encore assignée
+        return FindFirstObjectByType<Camera>();
+    }
+
 
     IEnumerator EndGameSequence()
     {
@@ -59,6 +85,9 @@ public class WasteManager : MonoBehaviour
         if (scoreManager != null && scoreManager.scoreText != null)
             scoreManager.hideScore();
             Debug.Log("Hiding score text.");
+
+        if (returnButton != null)
+            returnButton.SetActive(false);
 
         // Affiche le nouveau panel
         EndGamePanel.Instance.Show();

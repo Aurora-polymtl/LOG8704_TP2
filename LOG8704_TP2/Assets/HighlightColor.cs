@@ -31,10 +31,12 @@ public class HighlightColor : MonoBehaviour
 
     void Update()
     {
+        /*
         float targetY = originalY + (isHighlighted ? liftAmount : 0f);
         Vector3 pos = transform.localPosition;
         pos.y = Mathf.Lerp(pos.y, targetY, Time.deltaTime * liftSpeed);
         transform.localPosition = pos; // seulement Y
+        */
     }
 
     public void SetHighlight(bool active)
@@ -42,9 +44,9 @@ public class HighlightColor : MonoBehaviour
         isHighlighted = active;
 
         if (image != null)
-            image.color = active ? highlightColor : baseColor;
+            image.color = active ? baseColor : baseColor;
 
         if (renderer3D != null)
-            renderer3D.material.color = active ? highlightColor : baseColor;
+            renderer3D.material.color = active ? baseColor : baseColor;
     }
 }

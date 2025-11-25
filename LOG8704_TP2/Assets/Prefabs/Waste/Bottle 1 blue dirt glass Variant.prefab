@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wasteType: 1
+  wasteName: Verre
   factAboutWaste: "Le verre est un mat\xE9riau magique : il peut \xEAtre recycl\xE9
     encore et encore sans jamais perdre sa qualit\xE9. Recycler une bouteille permet
     d\u2019\xE9conomiser des mati\xE8res premi\xE8res comme le sable. C\u2019est

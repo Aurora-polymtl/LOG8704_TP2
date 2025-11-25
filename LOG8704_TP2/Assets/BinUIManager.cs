@@ -56,6 +56,7 @@ public class BinUIManager : MonoBehaviour
             if (bin != null)
             {
                 // Remet la couleur de base avant de cacher
+
                 HighlightColor highlight = bin.GetComponent<HighlightColor>();
                 if (highlight != null)
                     highlight.SetHighlight(false);
