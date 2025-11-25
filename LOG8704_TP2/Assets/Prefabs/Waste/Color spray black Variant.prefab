@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wasteType: 0
+  wasteName: Spray
   factAboutWaste: "Les a\xE9rosols contiennent souvent des produits qui peuvent \xEAtre
     dangereux ou inflammables. C\u2019est pour \xE7a qu\u2019on ne doit jamais les
     \xE9craser ou les jeter n\u2019importe o\xF9. Ils doivent aller dans la poubelle,

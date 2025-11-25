@@ -12,6 +12,7 @@ public class WasteItem : MonoBehaviour
 {
 
     public WasteType wasteType;
+    public string wasteName;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [TextArea]
     public string factAboutWaste;

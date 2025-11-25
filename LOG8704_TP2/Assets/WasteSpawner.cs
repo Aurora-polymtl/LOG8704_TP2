@@ -29,17 +29,26 @@ public class WasteSpawner : MonoBehaviour
 
     private float timer = 0f;
 
+    public GameObject loadingIndicator;
+
+
     void Update()
     {
         if (spawned) return;
 
         timer += Time.deltaTime;
 
+        if (loadingIndicator != null && !loadingIndicator.activeSelf)
+            loadingIndicator.SetActive(true);
+
         // On attend le délai et qu'au moins un plan soit détecté
         if (timer >= spawnDelay && raycastManager.Raycast(new Vector2(Screen.width / 2, Screen.height / 2), hits, TrackableType.PlaneWithinPolygon))
         {
             SpawnWasteOnVisibleSurfaces();
             spawned = true;
+            if (loadingIndicator != null)
+                loadingIndicator.SetActive(false);
+
         }
     }
 

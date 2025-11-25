@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wasteType: 2
+  wasteName: Pizza
   factAboutWaste: "Le carton propre peut \xEAtre recycl\xE9, mais une bo\xEEte de
     pizza pleine d\u2019huile et de sauce salit le recyclage. Dans ce cas, elle peut
     aller au compost, o\xF9 elle se d\xE9composera naturellement. C\u2019est une

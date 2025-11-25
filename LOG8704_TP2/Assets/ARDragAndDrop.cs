@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,10 +20,13 @@ public class ARDragAndDrop : MonoBehaviour
     public ScoreManager scoreManager;
     public BinUIManager binUIManager;
 
+    private HashSet<string> collectedWasteTypes = new HashSet<string>();
+
     void Awake()
     {
         if (arCamera == null)
             arCamera = Camera.main;
+        collectedWasteTypes.Clear();
     }
 
     void Start()
@@ -136,6 +140,7 @@ public class ARDragAndDrop : MonoBehaviour
         string info = item.factAboutWaste;
         string resultMsg = "";
         bool correct = false;
+        string type = item.wasteName;
         if (item == null) { grabbedObject = null; return; }
 
         TrashBin touchedBin = CheckDropZone(item);
@@ -163,7 +168,11 @@ public class ARDragAndDrop : MonoBehaviour
             WasteManager.Instance.WasteRemoved();
             string fact = info != null ? info : "Aucune information disponible.";
             Sprite sprite = item != null ? item.wasteSprite : null;
-            WasteInfoPopupUI.Instance.ShowPopup(resultMsg, fact, sprite, correct);
+            if (!collectedWasteTypes.Contains(type))
+            {
+                WasteInfoPopupUI.Instance.ShowPopup(resultMsg, fact, sprite, correct);
+                collectedWasteTypes.Add(type);
+            }
         }
         else
         {

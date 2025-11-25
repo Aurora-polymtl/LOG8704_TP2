@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wasteType: 2
+  wasteName: Orange
   factAboutWaste: "Quand les restes de nourriture vont \xE0 la poubelle, ils se retrouvent
     dans une d\xE9charge et produisent du m\xE9thane, un gaz tr\xE8s polluant. Mais
     si on les composte, ils retournent \xE0 la terre et nourrissent le sol. C\u2019est

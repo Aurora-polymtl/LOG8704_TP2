@@ -40,7 +40,7 @@ public class EndGamePanel : MonoBehaviour
         panelRoot.SetActive(true);
     }
 
-    void ReturnToMenu()
+    public void ReturnToMenu()
     {
         SceneManager.LoadScene("Menu");
     }

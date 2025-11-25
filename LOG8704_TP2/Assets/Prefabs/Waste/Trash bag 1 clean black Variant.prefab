@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wasteType: 0
+  wasteName: Sac
   factAboutWaste: "Les sacs en plastique ne se d\xE9composent presque jamais et peuvent
     rester dans la nature tr\xE8s longtemps. Ils peuvent blesser les animaux et polluer
     les oc\xE9ans. Le mieux est d\u2019en utiliser moins, mais quand on en a un,
